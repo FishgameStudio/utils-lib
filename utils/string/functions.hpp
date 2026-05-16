@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cctype>
 #include "excepts.hpp"
 
 
@@ -11,26 +12,26 @@ namespace str {
     using STR    = std::string;
 
     size_t len(STRREF s) {
-        return strlen(s.c_str());
+        return s.size();
     }
     STR left(STRREF s, size_t len) {
         /* Returns `len` characters in the left. */
         if (s.size() <= len) return s;
-        if (len - 1 > s.size()) throw OutOfStringRange(s);
+        if (len > s.size()) throw OutOfStringRange(s);
         return s.substr(0, len);
     }
     STR right(STRREF s, size_t len) {
         /* Returns `len` chars in the right. */
         if (s.size() <= len) return s;
-        if (len - 1 > s.size()) throw OutOfStringRange(s);
-        return s.substr(len - 1, s.size() - len);
+        if (len > s.size()) throw OutOfStringRange(s);
+        return s.substr(s.size() - len, len);
     }
     STR mid(STRREF s, size_t start, size_t len=std::string::npos) {
         /* Returns the specified `start` index to `start+len` chars of the string. */
-        if (len == std::string::npos) len == s.size() -1;
-        if (start > s.size() -1) throw OutOfStringRange(s);
-        if (len < 0) throw IndexUnderflow(len);
-        if (start + len > s.size() -1) throw OutOfStringRange(s);
+        if (len == std::string::npos) len = s.size() - 1;
+        if (start > s.size() - 1) throw OutOfStringRange(s);
+        if ((int)len < 0) throw IndexUnderflow(len);
+        if (start + len > s.size()) throw OutOfStringRange(s);
         return s.substr(start, len);
     }
     STR getleft(STRREF s, size_t len) noexcept {
@@ -56,7 +57,7 @@ namespace str {
     }
     STR upper(STR s) {
         /* Uppercase. */
-        int len = strlen(s.c_str());
+        int len = (int)s.size();
         for(int i = 0; i < len; i++) {
             if(s[i] >= 'a' && s[i] <= 'z')
                 s[i] -= 32;
@@ -65,16 +66,16 @@ namespace str {
     }
     bool isupper(STR s) {
         for (char c : s) {
-            if (c > 'Z'|| c < 'A') return false;
+            if (!(c >= 'A' && c <= 'Z')) return false;
         }
         return true;
     }
     bool isupper(char c) {
-        return (c < 'Z'&& c > 'A');
+        return (c >= 'A' && c <= 'Z');
     }
     STR lower(STR s) {
         /* Lowercase. */
-        int len = strlen(s.c_str());
+        int len = (int)s.size();
         for(int i = 0; i < len; i++) {
             if(s[i] >= 'A' && s[i] <= 'Z')
                 s[i] += 32;
@@ -83,12 +84,12 @@ namespace str {
     }
     bool islower(STR s) {
         for (char c : s) {
-            if (c > 'z' || c < 'a') return false;
+            if (!(c >= 'a' && c <= 'z')) return false;
         }
         return true;
     }
     bool islower(char c) {
-        return (c < 'z' && c > 'a');
+        return (c >= 'a' && c <= 'z');
     }
     STR title(STR s) {
         /* Title the string. */
@@ -111,23 +112,23 @@ namespace str {
         return s;
     }
     STR capitalize(STR s) {
-        int len = strlen(s.c_str());
-        if(s[0] >= 'a' && s[0] <= 'z') s[0] -= 32;
+        int len = (int)s.size();
+        if(!s.empty() && s[0] >= 'a' && s[0] <= 'z') s[0] -= 32;
         return s;
     }
     STR caseswap(STR s) {
         /* Swap the cases. */
         for (char& c : s) {
-            if (std::isupper(c)) c = std::tolower(c);
-            if (std::islower(c)) c = std::toupper(c);
+            if (isupper(c)) c = std::tolower(c);
+            else if (islower(c)) c = std::toupper(c);
         }
         return s;
     }
     STR strip(STR s) {
-        int l = 0, r = s.size() - 1;
+        int l = 0, r = (int)s.size() - 1;
         while (s[l] == ' ') l++;
         while (r > l && s[r] == ' ') r--;
-        return s.substr(l, r);
+        return s.substr(l, r - l + 1);
     }
     std::vector<STR> split(STRREF s, char sep) {
         std::vector<STR> res{};
@@ -144,11 +145,13 @@ namespace str {
         if(!temp.empty()) res.push_back(temp);
         return res;
     }
-    size_t count(STRREF s, STRREF subs) {
-        return std::count(s.begin(), s.end(), subs);
+    size_t count(STRREF s, char subs) {
+        size_t cnt = 0;
+        for(char c : s) if(c == subs) cnt++;
+        return cnt;
     }
     size_t find(STRREF s, STRREF subs) {
-        return *std::find(s.begin(), s.end(), subs);
+        return s.find(subs);
     }
     
 }
