@@ -152,10 +152,10 @@ build/your_program
 ```
 
 ## Roadmap
-- [ ] String library
+- [x] String library
 - [ ] Requests library
 - [x] DateTime library
-- [ ] Hashlib
+- [x] Hashlib
 
 See the [open issues](https://github.com/FishgameStudio/utils-lib/issues) for a full list of proposed features (and known issues).
 

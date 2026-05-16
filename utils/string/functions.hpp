@@ -153,5 +153,13 @@ namespace str {
     size_t find(STRREF s, STRREF subs) {
         return s.find(subs);
     }
-    
+    STR repeat(STRREF s, size_t time=1) {
+        if (time < 0) throw IndexUnderflow(time);
+        if (time == 1) return s;
+        STR res{};
+        for (auto i=1; i<=time; ++i) {
+            res += s;
+        }
+        return res;
+    }
 }
