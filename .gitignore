@@ -1,0 +1,83 @@
+# ===================== 编译产物 =====================
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+*.exe
+*.out
+*.bin
+*.elf
+
+# 调试文件
+*.pdb
+*.ilk
+*.map
+*.gcno
+*.gcda
+
+# 临时编译文件
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ===================== IDE 编辑器 =====================
+# VS
+.vs/
+*.vcxproj.user
+*.suo
+*.sdf
+ipch/
+Debug/
+Release/
+x64/
+x86/
+build/
+cmake-build-*/
+
+# CLion / Qt Creator
+cmake-build-debug/
+cmake-build-release/
+.cmake/
+CMakeLists.txt.user
+*.user
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+
+# 其他编辑器
+.DS_Store
+Thumbs.db
+
+# ===================== 依赖与缓存 =====================
+node_modules/
+venv/
+env/
+__pycache__/
+build/
+dist/
+
+# 头文件生成、配置
+config.h
+version.h
+
+# 日志与运行输出
+logs/
+*.txt
+*.json
+!config.json
+
+# 私有密钥、环境变量
+.env
+*.key
+*.pem
