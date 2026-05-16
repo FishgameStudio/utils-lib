@@ -65,7 +65,9 @@ venv/
 env/
 __pycache__/
 build/
+test/
 dist/
+temp
 
 # 头文件生成、配置
 config.h
