@@ -11,8 +11,8 @@
 ![Issues](https://img.shields.io/github/issues/FishgameStudio/utils-lib)
 ![PRs](https://img.shields.io/github/issues-pr/FishgameStudio/utils-lib)
 
+![Version](https://img.shields.io/badge/version-1.0-orange)
 [![C++](https://img.shields.io/badge/C++-26-blue)](https://isocpp.org)
-[![C](https://img.shields.io/badge/C-23-blue)](https://www.c-language.org/)
 ![License](https://img.shields.io/github/license/FishgameStudio/utils-lib)
 
 </div>
