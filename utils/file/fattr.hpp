@@ -2,6 +2,7 @@
 
 #pragma once
 #include <filesystem>
+#include <chrono>
 #include <string>
 #include "fexcept.hpp"
 #ifdef _WIN32
@@ -36,6 +37,14 @@ namespace file {
         // abc.txt -> .txt
         if (!exists(name)) F_THROW_NOTFOUND(name);
         return std::filesystem::path(name).extension().string();
+    }
+    int64_t modifyTime(const std::filesystem::path& p) {
+        /* Get the lastest modify timestamp of a file. */
+        auto tp = std::filesystem::last_write_time(p);
+        auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(
+            tp - std::filesystem::file_time_type::clock::now() + std::chrono::system_clock::now()
+        );
+        return std::chrono::duration_cast<std::chrono::seconds>(sctp.time_since_epoch()).count();
     }
     std::string stemOf(FNAME name) {
         // Returns the stem of the file.
