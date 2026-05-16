@@ -108,7 +108,7 @@ Of course, this basic general tool library cannot cover all professional scenari
 - Student programming learning, code standardization training and usual development code accumulation sorting
 
 ## Getting Started
-Here is an example to use & build.
+Here is an example to build.
 
 At first, please clone the repository on your local computer:
 ```bash
@@ -119,12 +119,7 @@ git clone https://github.com/FishgameStudio/utils-lib.git
 
 [**Explore the docs >>>**](docs)
 
-This is an example to include the header of this project. Please keep the copyright comments in the header file while using.
-
-```cpp
-
-```
-
+*Please keep the copyright comments in the header file while using.*
 *if you modified our source code, please insert these lines into your code:*
 ```cpp
 // Modified by [Your Name] [Modified Date]
@@ -159,8 +154,8 @@ build/your_program
 ## Roadmap
 - [ ] String library
 - [ ] Requests library
-- [ ] Features
-- [ ] Features
+- [x] DateTime library
+- [ ] Hashlib
 
 See the [open issues](https://github.com/FishgameStudio/utils-lib/issues) for a full list of proposed features (and known issues).
 
