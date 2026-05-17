@@ -84,16 +84,3 @@ std::string decode_to_string(const std::string& encoded) {
   if (bytes.empty()) return "";
   return std::string(reinterpret_cast<const char*>(bytes.data()), bytes.size());
 }
-
-// Test
-int main() {
-  std::string original = "Hello, Base64!";
-  std::string encoded = base64_encode(original);
-  std::string decoded = decode_to_string(encoded);
-
-  std::cout << "Original: " << original << std::endl;
-  std::cout << "Encoded:  " << encoded << std::endl;
-  std::cout << "Decoded:  " << decoded << std::endl;
-
-  return 0;
-}
