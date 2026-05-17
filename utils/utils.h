@@ -10,4 +10,6 @@
 #include "file/file.h"
 #include "math/math.h"
 #include "string/string.h"
+#include "hashlib/hashlib.h"
+
 
