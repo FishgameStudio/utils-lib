@@ -83,3 +83,7 @@ logs/
 .env
 *.key
 *.pem
+
+# build.py
+build.py
+*.pyd

@@ -13,35 +13,35 @@ namespace file {
     using FPATH = const std::filesystem::path&;
     using DIRPATH = const std::string&;
 
-    class FileNotFoundException : std::runtime_error {
+    class FileNotFoundException : public std::runtime_error {
     public:
         explicit FileNotFoundException(std::string msg) 
-        : runtime_error("File or directory not found: " + (std::string)msg) {}
+        : std::runtime_error("File or directory not found: " + (std::string)msg) {}
     };
-    class FileReadFailException : std::runtime_error {
+    class FileReadFailException : public std::runtime_error {
     public:
         explicit FileReadFailException(std::string msg) 
-        : runtime_error("Failed to read file: " + (std::string)msg) {}
+        : std::runtime_error("Failed to read file: " + (std::string)msg) {}
     };
-    class FileWriteFailException : std::runtime_error {
+    class FileWriteFailException : public std::runtime_error {
     public:
         explicit FileWriteFailException(std::string msg) 
-        : runtime_error("Failed to write file: " + (std::string)msg) {}
+        : std::runtime_error("Failed to write file: " + (std::string)msg) {}
     };
-    class FileOpenFailException : std::runtime_error {
+    class FileOpenFailException : public std::runtime_error {
     public:
         explicit FileOpenFailException(std::string msg) 
-        : runtime_error("Failed to open file: " + (std::string)msg) {}
+        : std::runtime_error("Failed to open file: " + (std::string)msg) {}
     };
-    class FileInvalidAttributesException : std::runtime_error {
+    class FileInvalidAttributesException : public std::runtime_error {
     public:
         explicit FileInvalidAttributesException(std::string msg) 
-        : runtime_error("Invalid attributes of file: " + (std::string)msg) {}
+        : std::runtime_error("Invalid attributes of file: " + (std::string)msg) {}
     };
-    class FileException : std::runtime_error {
+    class FileException : public std::runtime_error {
     public:
         explicit FileException(std::string msg) 
-        : runtime_error("File or directory error: " + (std::string)msg) {}
+        : std::runtime_error("File or directory error: " + (std::string)msg) {}
     };
     
 }

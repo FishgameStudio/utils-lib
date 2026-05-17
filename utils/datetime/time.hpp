@@ -5,33 +5,54 @@
 #include <iomanip>
 #include <string>
 #include <thread>
+#include <cstdint>
 
 using TIMESTAMP = int64_t;
 
 namespace datetime {
 
+    TIMESTAMP timestamp();
+    TIMESTAMP timestamp_ms();
+    std::string currentDateTimeString();
+    int currentYear();
+    int currentMonth();
+    int currentDay();
+    int currentHour();
+    int currentMinute();
+    int currentSecond();
+    void sleep(int seconds);
+    void sleepms(int milliseconds);
+
     class DATETIME {
     public:
         int year, month, day, min, sec;
         TIMESTAMP ts;
-        DATETIME() 
-        : year(currentYear()), month(currentMonth()), day(currentDay()), 
-          min(currentMinute()), sec(currentSecond()), ts(timestamp()) {}
+        DATETIME(): 
+        year(currentYear()), month(currentMonth()), day(currentDay()), 
+        min(currentMinute()), sec(currentSecond()), ts(timestamp()) {}
 
-        bool operator<(const DATETIME& object) {
-            return object.ts < this->ts;
+        bool operator<(const DATETIME& object) const {
+            return this->ts < object.ts;
         }
-        bool operator>(const DATETIME& object) {
-            return object.ts > this->ts;
+        bool operator>(const DATETIME& object) const {
+            return this->ts > object.ts;
         }
-        bool operator==(const DATETIME& object) {
-            return object.ts == this->ts;
+        bool operator==(const DATETIME& object) const {
+            return this->ts == object.ts;
         }
-        bool operator!=(const DATETIME& object) {
-            return object.ts != this->ts;
+        bool operator!=(const DATETIME& object) const {
+            return this->ts != object.ts;
         }
-        bool operator=(const DATETIME& object) {
-            return this->ts = object.ts;
+        DATETIME& operator=(const DATETIME& object) {
+            if (this != &object) {
+                year = object.year;
+                month = object.month;
+                day = object.day;
+                min = object.min;
+                sec = object.sec;
+                ts = object.ts;
+            }
+            return *this;
         }
         
         ~DATETIME() = default;
