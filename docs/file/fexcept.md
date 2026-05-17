@@ -24,6 +24,20 @@ Usage: Alias for `const std::vector<uint8_t>&`, used to represent binary data bu
 using FBINARY = const std::vector<uint8_t>&;
 ```
 
+# Documentation of Type Alias `FPATH`
+Usage: Alias for `const std::filesystem::path&`, used to manage long file pathes.
+**Definition**:
+```cpp
+using FPATH = const std::filesystem::path&;
+```
+
+
+# Documentation of Type Alias `DIRPATH`
+Usage: Alias for `const std::string&`, used to return a long path.
+**Definition**:
+```cpp
+DIRPATH = const std::string&;
+```
 
 
 # Documentation of Exception `FileNotFoundException`
@@ -98,6 +112,7 @@ public:
 ```
 **Base class**: `std::runtime_error`
 **Message format**: `Invalid attributes of file: [path]`
+
 
 
 
