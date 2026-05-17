@@ -4,8 +4,10 @@
 #include <vector>
 #include <filesystem>
 #include <algorithm>
+#include <fstream>
 #include "fexcept.hpp"
 #include "fattr.hpp"
+#include "../datetime/datetime.h"
 
 namespace file {
     DIRPATH getWorkingDir() {
@@ -95,4 +97,5 @@ namespace file {
             throw FileException("Failed to remove directory '" + (std::string)path + "': " + std::string(e.what()));
         }
     }
+
 }
