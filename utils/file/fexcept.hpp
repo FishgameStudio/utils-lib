@@ -4,16 +4,19 @@
 #include <string>
 #include <stdexcept>
 #include <vector>
+#include <filesystem>
 
 namespace file {
     using FNAME = const std::string&;
     using FSTRING = const std::string&;
     using FBINARY = const std::vector<uint8_t>&;
+    using FPATH = const std::filesystem::path&;
+    using DIRPATH = const std::string&;
 
     class FileNotFoundException : std::runtime_error {
     public:
         explicit FileNotFoundException(std::string msg) 
-        : runtime_error("File not found: " + (std::string)msg) {}
+        : runtime_error("File or directory not found: " + (std::string)msg) {}
     };
     class FileReadFailException : std::runtime_error {
     public:
@@ -34,6 +37,11 @@ namespace file {
     public:
         explicit FileInvalidAttributesException(std::string msg) 
         : runtime_error("Invalid attributes of file: " + (std::string)msg) {}
+    };
+    class FileException : std::runtime_error {
+    public:
+        explicit FileException(std::string msg) 
+        : runtime_error("File or directory error: " + (std::string)msg) {}
     };
     
 }
