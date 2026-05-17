@@ -154,11 +154,21 @@ namespace str {
         return s.find(subs);
     }
     STR repeat(STRREF s, size_t time=1) {
+        /* Repeat a string `time` times. */
         if (time < 0) throw IndexUnderflow(time);
         if (time == 1) return s;
         STR res{};
         for (auto i=1; i<=time; ++i) {
             res += s;
+        }
+        return res;
+    }
+    STR reverse(STRREF s) {
+        /* Reverse a string. */
+        size_t n = s.size() -1;
+        STR res{};
+        for (auto i = 0; i>=0; --i) {
+            res += s[i];
         }
         return res;
     }
