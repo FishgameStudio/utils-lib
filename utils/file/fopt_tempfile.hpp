@@ -33,10 +33,10 @@ namespace file {
                 }
             }
         }
-        FSTRING getContent() const {
+        std::string getContent() const {
             return file::readFile(name);
         }
-        FBINARY getBinary() const {
+        std::vector<uint8_t> getBinary() const {
             return file::readBinary(name);
         }
         std::string getName() const {

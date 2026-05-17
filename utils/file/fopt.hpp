@@ -10,7 +10,7 @@
 #include "fopt_tempfile.hpp"
 
 namespace file {
-    DIRPATH getWorkingDir() {
+    std::string getWorkingDir() {
         /* Get the current working directory. */
         try {
             return std::filesystem::current_path().string();
