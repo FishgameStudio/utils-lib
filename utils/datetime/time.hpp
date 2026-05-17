@@ -4,6 +4,7 @@
 #include <ctime>
 #include <iomanip>
 #include <string>
+#include <thread>
 
 using TIMESTAMP = int64_t;
 
@@ -92,6 +93,13 @@ namespace datetime {
         std::time_t t = timestamp();
         std::tm lt = *localtime(&t);
         return lt.tm_sec;
+    }
+    void sleep(int seconds) {
+        /* Sleep for a while. */
+        std::this_thread::sleep_for(std::chrono::seconds(seconds));
+    }
+    void sleepms(int milliseconds) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
     }
     
 }
