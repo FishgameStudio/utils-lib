@@ -13,6 +13,7 @@
 
 ![Version](https://img.shields.io/badge/version-1.0-orange)
 [![C++](https://img.shields.io/badge/C++-26-blue)](https://isocpp.org)
+[![Python](https://img.shields.io/badge/python-3.14-blue)](https://python.org)
 ![License](https://img.shields.io/github/license/FishgameStudio/utils-lib)
 
 </div>
@@ -81,8 +82,8 @@ Here’s why UtilitiesLibrary is well-suited for integration into daily developm
 Of course, this basic general tool library cannot cover all professional scenario-specific low-level functions such as network communication, hardware underlying calling and high-concurrency scheduling. I will continue to maintain and iterate UtilitiesLibrary later, continuously enrich practical general functions, optimize internal logic details, fix potential compatibility bugs, and expand more lightweight auxiliary tool modules according to actual development demands. All developers are welcome to star this project, share valuable optimization ideas and function expansion demands through Issues, and jointly polish this practical lightweight basic utility library. Every user's recognition and use is the biggest power to promote the continuous improvement of this project.
 
 ## Core Features
-- ✨ **Standard C++ Pure Implementation, Zero External Dependencies**
-  Written based on mainstream modern C++ standards, no third-party library reliance, out-of-the-box use, simple access and easy integration into all kinds of C++ projects.
+- ✨ **Standard Modern C++ Implementation**
+  Written based on mainstream modern C++ standards with clean structure and easy integration. When building Python bindings, `pybind11` is required.
 - 📂 **Full-Featured Cross-Platform File Toolkit**
   Support file & folder traversal, pure filename extraction (remove suffix), hidden file judgment, cross-platform stable acquisition of file modification time, fast judgment of files modified on the current day and other common file operation functions.
 - 🧮 **Practical Common Mathematical Function Encapsulation**
@@ -131,6 +132,8 @@ This is an example to compile & run the code.
 
 #### Environment Required
 To compile the code, you need:
+- Python official launcher(version 3+)
+- pip (26+)
 - clang/clang++ latest version(22).
 - gcc/g++ latest version(16.1).
 - MSVC latest version(14.50.35710).
@@ -140,6 +143,8 @@ To compile the code, you need:
 #### Compiling Code
 This is an example of the compiling code.
 ```bash
+# Install pybind11
+pip install pybind11
 # clang++
 clang++ test/your_code.cpp -Wall -std=c++26 -stdlib=libc++ -fexperimental-library -I./utils/ -o build/your_program
 # g++
@@ -150,6 +155,9 @@ cl /O2 /W4 /std:c++26 /I.\utils\ /Fobuild\ /Febuild\your_program.exe test\your_c
 # Run
 build/your_program
 ```
+
+## NOTICE
+This project now includes optional Python binding support via `pybind11`. If you use the Python integration, make sure `pybind11` is installed and available during build.
 
 ## Roadmap
 - [x] String library
@@ -193,6 +201,7 @@ Project Link: [https://github.com/FishgameStudio/utils-lib](https://github.com/F
 ## Acknowledgments
 
 * [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+* [pybind/pybind11](https://github.com/pybind/pybind11)
 
 
 ## Conclusion
