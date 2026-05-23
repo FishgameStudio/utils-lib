@@ -1,3 +1,6 @@
+# This CMakeLists.txt file is for building Python APIs instead of your C++ usage.
+# You don't need this if you only want to use the C++ APIs.
+
 cmake_minimum_required(VERSION 3.15)
 
 project(utils-lib)
@@ -12,6 +15,7 @@ execute_process(
   OUTPUT_VARIABLE PYBIND11_INCLUDES
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+
 
 add_library(
     FileLib MODULE
@@ -29,11 +33,14 @@ add_library(
 foreach(lib FileLib DatetimeLib StringLib)
     # Enable C++23 standard
     target_compile_features(${lib} PRIVATE cxx_std_23)
+    target_include_directories(${lib} PRIVATE ${Python3_INCLUDE_DIRS})
 
     # Let the compiler know that this is a Python extension module
     set_target_properties(${lib} PROPERTIES
         COMPILE_FLAGS "${PYBIND11_INCLUDES}"
         PREFIX ""
+        # Output to the py_utilslib directory.
+        LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/py_utilslib
     )
 
     # Link against the Python libraries
