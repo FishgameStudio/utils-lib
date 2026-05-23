@@ -36,6 +36,9 @@ foreach(lib FileLib DatetimeLib StringLib)
         PREFIX ""
     )
 
+    # Link against the Python libraries
+    target_link_libraries(${lib} PRIVATE Python3::Python)
+
     # macOS platform suffix
     if(APPLE)
         set_target_properties(${lib} PROPERTIES SUFFIX ".so")
