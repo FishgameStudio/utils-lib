@@ -142,18 +142,41 @@ To compile the code, you need:
 
 #### Compiling Code
 This is an example of the compiling code.
+If you want to use the raw C++ APIs, just include the headers, like this:
+```cpp
+#include "utils/utils.h"
+```
+Compile code:
 ```bash
-# Install pybind11
-pip install pybind11
 # clang++
 clang++ test/your_code.cpp -Wall -std=c++26 -stdlib=libc++ -fexperimental-library -I./utils/ -o build/your_program
 # g++
 g++ -o build/your_program -Wall -std=c++26 -I./utils/ test/your_code.cpp
 # MSVC (no escape character)
 cl /O2 /W4 /std:c++26 /I.\utils\ /Fobuild\ /Febuild\your_program.exe test\your_code.cpp
-
 # Run
 build/your_program
+```
+
+If you want to use the Python APIs please execute these commands:
+```bash
+# Install envrionment requires
+pip install setuptools
+pip install pybind11
+
+# Make
+mkdir build
+cd build
+cmake ..
+make
+cd ..
+# You will get several .so, .pyd, or .dll files in the directory `py_utilslib` now.
+```
+Now you got the binary library file(\*.so) and APIs(\*.pyi) in the directory [`py_utilslib`](py_utilslib) now. You can certainly use the interfaces in Python, the Python will call the functions written in C++ and get better performence, just like this: 
+```python
+from py_utilslib import StringLib
+s = StringLib.reverse("Hello, world!")
+print(s) # !dlrow ,olleH
 ```
 
 ## NOTICE
