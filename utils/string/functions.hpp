@@ -28,9 +28,8 @@ namespace str {
     }
     STR mid(STRREF s, size_t start, size_t len=std::string::npos) {
         /* Returns the specified `start` index to `start+len` chars of the string. */
-        if (len == std::string::npos) len = s.size() - 1;
-        if (start > s.size() - 1) throw OutOfStringRange(s);
-        if ((int)len < 0) throw IndexUnderflow(len);
+        if (start > s.size()) throw OutOfStringRange(s);
+        if (len == std::string::npos) len = s.size() - start;
         if (start + len > s.size()) throw OutOfStringRange(s);
         return s.substr(start, len);
     }
@@ -125,8 +124,9 @@ namespace str {
         return s;
     }
     STR strip(STR s) {
-        int l = 0, r = (int)s.size() - 1;
-        while (s[l] == ' ') l++;
+        if (s.empty()) return s;
+        size_t l = 0, r = s.size() - 1;
+        while (l < s.size() && s[l] == ' ') l++;
         while (r > l && s[r] == ' ') r--;
         return s.substr(l, r - l + 1);
     }
@@ -165,11 +165,6 @@ namespace str {
     }
     STR reverse(STRREF s) {
         /* Reverse a string. */
-        size_t n = s.size() -1;
-        STR res{};
-        for (auto i = 0; i>=0; --i) {
-            res += s[i];
-        }
-        return res;
+        return STR{s.rbegin(), s.rend()};
     }
 }
