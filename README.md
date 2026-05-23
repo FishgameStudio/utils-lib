@@ -160,10 +160,10 @@ build/your_program
 This project now includes optional Python binding support via `pybind11`. If you use the Python integration, make sure `pybind11` is installed and available during build.
 
 ## Roadmap
-- [x] String library
-- [x] Requests library
-- [x] DateTime library
-- [x] Hashlib
+- [ ] Features
+- [ ] Features
+- [ ] Features
+- [ ] Features
 
 See the [open issues](https://github.com/FishgameStudio/utils-lib/issues) for a full list of proposed features (and known issues).
 
