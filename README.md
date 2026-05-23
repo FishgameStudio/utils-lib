@@ -161,7 +161,7 @@ This project now includes optional Python binding support via `pybind11`. If you
 
 ## Roadmap
 - [x] String library
-- [ ] Requests library
+- [x] Requests library
 - [x] DateTime library
 - [x] Hashlib
 
