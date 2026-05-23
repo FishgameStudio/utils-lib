@@ -6,7 +6,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(_file, m) {
+PYBIND11_MODULE(FileLib, m) {
     m.doc() = "File utilities module powered by pybind11.";
 
     py::register_exception<file::FileException>(m, "FileException", PyExc_RuntimeError);

@@ -5,7 +5,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(_string, m) {
+PYBIND11_MODULE(StringLib, m) {
     m.doc() = "A string utilities module implemented in C++ using pybind11.";
 
     auto pyOutOfRange = py::register_exception<str::OutOfStringRange>(m, "OutOfStringRange", PyExc_IndexError);
