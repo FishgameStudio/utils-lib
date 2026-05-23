@@ -8,7 +8,7 @@ class CMakeBuild(build_ext):
     def run(self):
         src_dir = os.path.abspath(".")
         build_dir = os.path.join(src_dir, "build")
-        install_dir = os.path.abspath("utils_lib")
+        install_dir = os.path.abspath("py_utilslib")
 
         os.makedirs(build_dir, exist_ok=True)
         subprocess.check_call(
@@ -21,8 +21,8 @@ class CMakeBuild(build_ext):
 setup(
     name="utils-lib",
     version="1.0.0",
-    packages=["utils_lib"],
-    package_data={"utils_lib": ["*.pyi", "*.so", "*.pyd"]},
+    packages=["py_utilslib"],
+    package_data={"py_utilslib": ["*.pyi", "*.so", "*.pyd"]},
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False
 )

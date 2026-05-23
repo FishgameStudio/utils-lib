@@ -158,7 +158,12 @@ cl /O2 /W4 /std:c++26 /I.\utils\ /Fobuild\ /Febuild\your_program.exe test\your_c
 build/your_program
 ```
 
-If you want to use the Python APIs please execute these commands:
+If you want to use the Python APIs, please enter:
+```bash
+pip install .
+```
+
+If the setup failed, you also can execute these commands:
 ```bash
 # Install envrionment requires
 pip install setuptools
