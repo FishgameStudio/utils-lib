@@ -76,6 +76,7 @@ version.h
 # 日志与运行输出
 logs/
 *.txt
+!CMakeLists.txt
 *.json
 !config.json
 
