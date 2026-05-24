@@ -199,4 +199,24 @@ namespace str {
         std::cout << std::endl; // Move to the next line after input.
         return res;
     }
+    STR getusername() {
+        /* Get the username of the current user. */
+        #ifdef _WIN32
+            char username[256];
+            DWORD size = sizeof(username);
+            if (GetUserNameA(username, &size)) {
+                return STR{username};
+            } else {
+                throw std::runtime_error("Failed to get username");
+            }
+        #else
+            const char* username = std::getenv("USER");
+            if (username) {
+                return STR{username};
+            } else {
+                throw std::runtime_error("Failed to get username");
+            }
+        #endif
+        return "";
+    }
 }
