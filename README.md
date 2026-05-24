@@ -174,9 +174,9 @@ make
 cd ..
 # You will get several .so, .pyd, or .dll files in the directory `py_utilslib` now.
 # Let's install it down!
-pip install
+pip install .
 ```
-Now you got the binary library file(\*.so) and APIs(\*.pyi) in the directory [`py_utilslib`](py_utilslib) now. You can certainly use the interfaces in Python, the Python will call the functions written in C++ and get better performence, just like this: 
+Now you installed this project on your computer. You can certainly use the APIs from C++. Like this:
 ```python
 from py_utilslib import StringLib
 s = StringLib.reverse("Hello, world!")
