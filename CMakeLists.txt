@@ -33,8 +33,12 @@ add_library(
     TimerLib MODULE
     utils/timer/pybind_timer.cpp
 )
+add_library(
+    ThreadPoolLib MODULE
+    utils/threadpool/pybind_threadpool.cpp
+)
 
-foreach(lib FileLib DatetimeLib StringLib TimerLib)
+foreach(lib FileLib DatetimeLib StringLib TimerLib ThreadPoolLib)
     # Enable C++23 standard
     target_compile_features(${lib} PRIVATE cxx_std_23)
     target_include_directories(${lib} PRIVATE ${Python3_INCLUDE_DIRS})
