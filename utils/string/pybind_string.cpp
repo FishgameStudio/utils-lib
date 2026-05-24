@@ -30,5 +30,8 @@ PYBIND11_MODULE(StringLib, m) {
     m.def("find", &str::find, "Find a substring and return its position.", py::arg("s"), py::arg("subs"));
     m.def("repeat", &str::repeat, "Repeat a string `time` times.", py::arg("s"), py::arg("time") = 1);
     m.def("reverse", &str::reverse, "Reverse a string.", py::arg("s"));
+    m.def("replace", &str::replace, "Replace all occurrences of `oldsubs` with `newsubs`.", py::arg("s"), py::arg("oldsubs"), py::arg("newsubs"));
+    m.def("input", &str::input, "Get input from the user with an optional prompt.", py::arg("prompt") = "");
+    m.def("inputpasswd", &str::inputpasswd, "Get password input from the user with an optional prompt.", py::arg("prompt") = "Password: ");
 }
 

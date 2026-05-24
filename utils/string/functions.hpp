@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 #include "excepts.hpp"
 
 
@@ -168,5 +169,34 @@ namespace str {
     STR reverse(STRREF s) {
         /* Reverse a string. */
         return STR{s.rbegin(), s.rend()};
+    }
+    STR replace(STR s, STRREF oldsubs, STRREF newsubs) {
+        /* Replace all occurrences of `oldsubs` with `newsubs`. */
+        size_t pos = 0;
+        while ((pos = s.find(oldsubs, pos)) != std::string::npos) {
+            s.replace(pos, oldsubs.length(), newsubs);
+            pos += newsubs.length();
+        }
+        return s;
+    }
+    STR input(STRREF prompt="") {
+        /* Get input from the user. */
+        STR res;
+        std::cout << prompt;
+        std::getline(std::cin, res);
+        return res;
+    }
+    STR inputpasswd(STRREF prompt="Password: ") {
+        /* Get password input from the user. */
+        STR res;
+        std::cout << prompt;
+        while (true) {
+            char c = std::getchar();
+            if (c == '\n') break;
+            res += c;
+            std::cout << '*'; // Print asterisk for each character entered.
+        }
+        std::cout << std::endl; // Move to the next line after input.
+        return res;
     }
 }
