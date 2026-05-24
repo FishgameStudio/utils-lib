@@ -158,12 +158,7 @@ cl /O2 /W4 /std:c++26 /I.\utils\ /Fobuild\ /Febuild\your_program.exe test\your_c
 build/your_program
 ```
 
-If you want to use the Python APIs, please enter:
-```bash
-pip install .
-```
-
-If the setup failed, you also can execute these commands:
+If you want to use the Python APIs, please execute these commands:
 ```bash
 # Install envrionment requires
 pip install setuptools
@@ -176,6 +171,8 @@ cmake ..
 make
 cd ..
 # You will get several .so, .pyd, or .dll files in the directory `py_utilslib` now.
+# Let's install it down!
+pip install
 ```
 Now you got the binary library file(\*.so) and APIs(\*.pyi) in the directory [`py_utilslib`](py_utilslib) now. You can certainly use the interfaces in Python, the Python will call the functions written in C++ and get better performence, just like this: 
 ```python
