@@ -21,8 +21,10 @@
 # SOFTWARE.
 
 
-import FileLib
-import StringLib
-import DatetimeLib
+from . import FileLib
+from . import StringLib
+from . import DatetimeLib
+from . import TimerLib
+__all__ = ["FileLib", "StringLib", "DatetimeLib", "TimerLib"]
 
 __version__ = "1.0.0"
