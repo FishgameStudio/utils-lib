@@ -1,5 +1,7 @@
 <div align="center">
 
+![logo](assets/logo.png)
+
 # UtilitiesLibrary
 > A simple & all-purpose utilities colletion!
 
