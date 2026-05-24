@@ -7,6 +7,8 @@
 #include <thread>
 #include <cstdint>
 
+#include <pybind11/pybind11.h> // GIL management
+
 using TIMESTAMP = int64_t;
 
 namespace datetime {
@@ -115,11 +117,14 @@ namespace datetime {
         std::tm lt = *localtime(&t);
         return lt.tm_sec;
     }
+
+    // TODO: Fix the stuck when python calls this function. It may be caused by the GIL.
     void sleep(int seconds) {
-        /* Sleep for a while. */
+        pybind11::call_guard<pybind11::gil_scoped_release>();
         std::this_thread::sleep_for(std::chrono::seconds(seconds));
     }
     void sleepms(int milliseconds) {
+        pybind11::call_guard<pybind11::gil_scoped_release>();
         std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
     }
     
