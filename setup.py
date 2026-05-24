@@ -16,6 +16,7 @@ class CMakeBuild(build_ext):
             cwd=build_dir
         )
         subprocess.check_call(["make", "-j4"], cwd=build_dir)
+        subprocess.check_call(["make", "install"], cwd=build_dir)
         super().run()
 
 setup(
