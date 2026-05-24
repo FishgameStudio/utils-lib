@@ -29,8 +29,12 @@ add_library(
     StringLib MODULE
     utils/string/pybind_string.cpp
 )
+add_library(
+    TimerLib MODULE
+    utils/timer/pybind_timer.cpp
+)
 
-foreach(lib FileLib DatetimeLib StringLib)
+foreach(lib FileLib DatetimeLib StringLib TimerLib)
     # Enable C++23 standard
     target_compile_features(${lib} PRIVATE cxx_std_23)
     target_include_directories(${lib} PRIVATE ${Python3_INCLUDE_DIRS})
