@@ -38,19 +38,19 @@ STR right(STRREF s, size_t len) {
 
 
 # Documentation of function `mid`
-Function usage: Get substring starting at `start`, length `len`.
+Function usage: Get substring starting at `start`, up to `len` characters.
 Implementation:
 ```cpp
 STR mid(STRREF s, size_t start, size_t len=std::string::npos) {
-    if (len == std::string::npos) len = s.size() - 1;
-    if (start > s.size() - 1) throw OutOfStringRange(s);
-    if ((int)len < 0) throw IndexUnderflow(len);
+    if (start > s.size()) throw OutOfStringRange(s);
+    if (len == std::string::npos) len = s.size() - start;
     if (start + len > s.size()) throw OutOfStringRange(s);
     return s.substr(start, len);
 }
 ```
 **Example**: `mid("hello", 1, 3)` → `"ell"`
-**Exceptions**: `OutOfStringRange`, `IndexUnderflow`.
+**Behavior**: When `len` is omitted, returns the substring from `start` to the end.
+**Exception**: `OutOfStringRange` if `start` is beyond the string or the requested range exceeds the string.
 
 
 # Documentation of function `getleft`
@@ -290,12 +290,87 @@ Function usage: Reverse the entire string.
 Implementation:
 ```cpp
 STR reverse(STRREF s) {
-    size_t n = s.size() -1;
-    STR res{};
-    for (auto i = 0; i>=0; --i) {
-        res += s[i];
-    }
-    return res;
+    /* Reverse a string using reverse iterators. */
+    return STR{s.rbegin(), s.rend()};
 }
 ```
 **Example**: `reverse("hello")` → `"olleh"`
+
+
+# Documentation of function `replace`
+Function usage: Replace all occurrences of `oldsubs` with `newsubs`.
+Implementation:
+```cpp
+STR replace(STR s, STRREF oldsubs, STRREF newsubs) {
+    size_t pos = 0;
+    while ((pos = s.find(oldsubs, pos)) != std::string::npos) {
+        s.replace(pos, oldsubs.length(), newsubs);
+        pos += newsubs.length();
+    }
+    return s;
+}
+```
+**Example**: `replace("banana", "na", "na!")` → `"bana!na!"`
+**Behavior**: Continues searching after each replacement to avoid infinite loops when `newsubs` contains `oldsubs`.
+
+
+# Documentation of function `input`
+Function usage: Read a full line of user input from standard input.
+Implementation:
+```cpp
+STR input(STRREF prompt="") {
+    STR res;
+    std::cout << prompt;
+    std::getline(std::cin, res);
+    return res;
+}
+```
+**Behavior**: Prints the prompt and returns the entered line as a string.
+
+
+# Documentation of function `inputpasswd`
+Function usage: Read a password from standard input while echoing `*` for each character.
+Implementation:
+```cpp
+STR inputpasswd(STRREF prompt="Password: ") {
+    STR res;
+    std::cout << prompt;
+    while (true) {
+        char c = std::getchar();
+        if (c == '\n') break;
+        res += c;
+        std::cout << '*';
+    }
+    std::cout << std::endl;
+    return res;
+}
+```
+**Behavior**: Masks typed characters with `*` and returns the entered text after Enter is pressed.
+
+
+# Documentation of function `getusername`
+Function usage: Get the current user name from the environment.
+Implementation:
+```cpp
+STR getusername() {
+    #ifdef _WIN32
+        char username[256];
+        DWORD size = sizeof(username);
+        if (GetUserNameA(username, &size)) {
+            return STR{username};
+        } else {
+            throw std::runtime_error("Failed to get username");
+        }
+    #else
+        const char* username = std::getenv("USER");
+        if (username) {
+            return STR{username};
+        } else {
+            throw std::runtime_error("Failed to get username");
+        }
+    #endif
+    return "";
+}
+```
+**Behavior**: Reads the current username from system environment on POSIX, or from Windows API on Windows.
+**Exception**: Throws if the username cannot be determined.
