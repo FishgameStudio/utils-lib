@@ -8,6 +8,7 @@ If you discover any security vulnerability, please submit details privately via 
 **[popxhxh@outlook.com](mailto:popxhxh@outlook.com)**
 
 Please include the following information in your report:
+- `SECURITY` word
 - Vulnerability description and reproduction steps
 - Affected version scope
 - Potential impact and risk level
