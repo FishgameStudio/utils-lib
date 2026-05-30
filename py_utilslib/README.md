@@ -1,0 +1,2 @@
+This directory provided **Python APIs** with `*.pyi` API declaration file.
+This directory has been **ignored** \*.so, \*.dll and \*.pyd binary library files. To build & get the files, please see [README.md](../README.md#how-to-build)

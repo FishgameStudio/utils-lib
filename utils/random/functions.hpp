@@ -4,6 +4,7 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 namespace random {
     using STR = std::string;
@@ -12,6 +13,7 @@ namespace random {
     using NUMVEC = std::vector<T>;
     using NUM = double;
     using INT = int;
+
     
     /* Create random engine object. */
     class RandomEngine {
@@ -79,5 +81,17 @@ namespace random {
         }
         return result;
     }
+    template<typename... Args>
+    decltype(auto) choice(Args&&... args) {
+        using ReturnType = std::common_type_t<Args...>;
+        ReturnType arr[] = { std::forward<Args>(args)... };
+        const size_t size = sizeof...(Args);
 
+        if (size == 0) {
+            throw std::invalid_argument("choice: No argument inputted!");
+        }
+        size_t idx = RandomEngine().rand_int(0, size-1);
+
+        return arr[idx];
+    }
 }

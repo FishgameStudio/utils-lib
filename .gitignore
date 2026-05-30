@@ -64,6 +64,8 @@ node_modules/
 venv/
 env/
 __pycache__/
+*.egg-info/
+*.egg
 build/
 test/
 dist/
@@ -76,6 +78,7 @@ version.h
 # 日志与运行输出
 logs/
 *.txt
+!CMakeLists.txt
 *.json
 !config.json
 

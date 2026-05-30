@@ -13,6 +13,9 @@
 #include "string/string.h"
 #include "hashlib/hashlib.h"
 #include "random/random.h"
+#include "requests/requests.h"
+#include "timer/timer.h"
+#include "macrodef/macrodef.h"
 
 
 

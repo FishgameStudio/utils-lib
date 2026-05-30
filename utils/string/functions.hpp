@@ -1,9 +1,12 @@
 /* Core string functions. */
 
+
+#pragma once
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 #include "excepts.hpp"
 
 
@@ -28,9 +31,8 @@ namespace str {
     }
     STR mid(STRREF s, size_t start, size_t len=std::string::npos) {
         /* Returns the specified `start` index to `start+len` chars of the string. */
-        if (len == std::string::npos) len = s.size() - 1;
-        if (start > s.size() - 1) throw OutOfStringRange(s);
-        if ((int)len < 0) throw IndexUnderflow(len);
+        if (start > s.size()) throw OutOfStringRange(s);
+        if (len == std::string::npos) len = s.size() - start;
         if (start + len > s.size()) throw OutOfStringRange(s);
         return s.substr(start, len);
     }
@@ -125,8 +127,9 @@ namespace str {
         return s;
     }
     STR strip(STR s) {
-        int l = 0, r = (int)s.size() - 1;
-        while (s[l] == ' ') l++;
+        if (s.empty()) return s;
+        size_t l = 0, r = s.size() - 1;
+        while (l < s.size() && s[l] == ' ') l++;
         while (r > l && s[r] == ' ') r--;
         return s.substr(l, r - l + 1);
     }
@@ -165,11 +168,55 @@ namespace str {
     }
     STR reverse(STRREF s) {
         /* Reverse a string. */
-        size_t n = s.size() -1;
-        STR res{};
-        for (auto i = 0; i>=0; --i) {
-            res += s[i];
+        return STR{s.rbegin(), s.rend()};
+    }
+    STR replace(STR s, STRREF oldsubs, STRREF newsubs) {
+        /* Replace all occurrences of `oldsubs` with `newsubs`. */
+        size_t pos = 0;
+        while ((pos = s.find(oldsubs, pos)) != std::string::npos) {
+            s.replace(pos, oldsubs.length(), newsubs);
+            pos += newsubs.length();
         }
+        return s;
+    }
+    STR input(STRREF prompt="") {
+        /* Get input from the user. */
+        STR res;
+        std::cout << prompt;
+        std::getline(std::cin, res);
         return res;
+    }
+    STR inputpasswd(STRREF prompt="Password: ") {
+        /* Get password input from the user. */
+        STR res;
+        std::cout << prompt;
+        while (true) {
+            char c = std::getchar();
+            if (c == '\n') break;
+            res += c;
+            std::cout << '*'; // Print asterisk for each character entered.
+        }
+        std::cout << std::endl; // Move to the next line after input.
+        return res;
+    }
+    STR getusername() {
+        /* Get the username of the current user. */
+        #ifdef _WIN32
+            char username[256];
+            DWORD size = sizeof(username);
+            if (GetUserNameA(username, &size)) {
+                return STR{username};
+            } else {
+                throw std::runtime_error("Failed to get username");
+            }
+        #else
+            const char* username = std::getenv("USER");
+            if (username) {
+                return STR{username};
+            } else {
+                throw std::runtime_error("Failed to get username");
+            }
+        #endif
+        return "";
     }
 }

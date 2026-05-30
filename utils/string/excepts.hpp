@@ -1,5 +1,6 @@
 /* Exceptions difinitions. */
 
+#pragma once
 #include <stdexcept>
 #include <string>
 

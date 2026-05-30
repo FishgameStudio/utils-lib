@@ -6,7 +6,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(_datetime, m) {
+PYBIND11_MODULE(DatetimeLib, m) {
     m.doc() = "A datetime module implemented in C++ using pybind11";
 
     m.def("timestamp", &datetime::timestamp, "Seconds since epoch as integer");
