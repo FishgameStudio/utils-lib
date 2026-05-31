@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cctype>
 #include <iostream>
+#include <windows.h>
 #include "excepts.hpp"
 
 
@@ -168,7 +169,9 @@ namespace str {
     }
     STR reverse(STRREF s) {
         /* Reverse a string. */
-        return STR{s.rbegin(), s.rend()};
+        STR res{};
+        for (int i=s.size() - 1; i>=0; --i) res += s[i];
+        return res;
     }
     STR replace(STR s, STRREF oldsubs, STRREF newsubs) {
         /* Replace all occurrences of `oldsubs` with `newsubs`. */
