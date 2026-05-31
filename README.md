@@ -2,7 +2,7 @@
 
 ![logo](assets/logo.png)
 
-# UtilitiesLibrary
+# **UtilitiesLibrary**
 > A simple & all-purpose utilities colletion!
 
 [**Explore the docs >>>**](docs)
