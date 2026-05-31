@@ -1,66 +1,35 @@
-# This CMakeLists.txt file is for building Python APIs instead of your C++ usage.
-# You don't need this if you only want to use the C++ APIs.
+cmake_minimum_required(VERSION 3.18)
+project(utils-lib LANGUAGES CXX)
 
-cmake_minimum_required(VERSION 3.15)
-
-project(utils-lib)
-
-# Find for python
+# find python
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
-# Import pybind11
-include_directories(${Python3_INCLUDE_DIRS})
-execute_process(
-  COMMAND python3 -m pybind11 --includes
-  OUTPUT_VARIABLE PYBIND11_INCLUDES
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
+# fnid pybind11
+find_package(pybind11 CONFIG REQUIRED)
 
+# define module
+pybind11_add_module(FileLib      utils/file/pybind_file.cpp)
+pybind11_add_module(DatetimeLib  utils/datetime/pybind_datetime.cpp)
+pybind11_add_module(StringLib    utils/string/pybind_string.cpp)
+pybind11_add_module(TimerLib      utils/timer/pybind_timer.cpp)
+pybind11_add_module(ThreadPoolLib utils/threadpool/pybind_threadpool.cpp)
 
-add_library(
-    FileLib MODULE
-    utils/file/pybind_file.cpp
+# set properties
+set(TARGETS
+    FileLib DatetimeLib StringLib TimerLib ThreadPoolLib
 )
-add_library(
-    DatetimeLib MODULE
-    utils/datetime/pybind_datetime.cpp
-)
-add_library(
-    StringLib MODULE
-    utils/string/pybind_string.cpp
-)
-add_library(
-    TimerLib MODULE
-    utils/timer/pybind_timer.cpp
-)
-add_library(
-    ThreadPoolLib MODULE
-    utils/threadpool/pybind_threadpool.cpp
-)
+foreach(t ${TARGETS})
+    target_compile_features(${t} PRIVATE cxx_std_23)
 
-foreach(lib FileLib DatetimeLib StringLib TimerLib ThreadPoolLib)
-    # Enable C++23 standard
-    target_compile_features(${lib} PRIVATE cxx_std_23)
-    target_include_directories(${lib} PRIVATE ${Python3_INCLUDE_DIRS})
-
-    # Let the compiler know that this is a Python extension module
-    set_target_properties(${lib} PROPERTIES
-        COMPILE_FLAGS "${PYBIND11_INCLUDES}"
-        PREFIX ""
-        # Output to the py_utilslib directory.
+    # output dir
+    set_target_properties(${t} PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/py_utilslib
     )
 
-    # Link against the Python libraries
-    target_link_libraries(${lib} PRIVATE Python3::Python)
-
-    # macOS platform suffix
-    if(APPLE)
-        set_target_properties(${lib} PROPERTIES SUFFIX ".so")
-    endif()
-
-    # Windows platform suffix
+    # suffixes
     if(WIN32)
-        set_target_properties(${lib} PROPERTIES SUFFIX ".pyd")
+        set_target_properties(${t} PROPERTIES SUFFIX ".pyd")
+    else()
+        set_target_properties(${t} PROPERTIES SUFFIX ".so")
     endif()
 endforeach()
